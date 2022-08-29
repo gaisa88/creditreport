@@ -5,10 +5,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 @SpringBootApplication
 public class CreditreportApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParserConfigurationException {
         ApplicationContext ctx = SpringApplication.run(CreditreportApplication.class, args);
 
         GetAvailableReportsForIdClient getAvailableReportsForIdClient = ctx.getBean(GetAvailableReportsForIdClient.class);
@@ -17,8 +19,8 @@ public class CreditreportApplication {
         if (args.length > 0) {
             iin = args[0];
         }
-        GetAvailableReportsForIdResponse response = GetAvailableReportsForIdClient.getGetAvailableReportsForIdResult(iin);
-        getAvailableReportsForIdClient.printResponse(response);
+        GetAvailableReportsForIdResponse.GetAvailableReportsForIdResult response = getAvailableReportsForIdClient.getGetAvailableReportsForIdResult(iin);
+        //getAvailableReportsForIdClient.printResponse(response);
     }
 }
 
