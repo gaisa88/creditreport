@@ -49,17 +49,15 @@ public class GetAvailableReportsForIdClient extends WebServiceGatewaySupport {
         request1.setIdNumber(iin);
         request1.setXmlParams(xmlParams);
 
-        // разобраться с передаваемым объектом
-
         System.out.println();
         System.out.println("Requesting scoring for iin: " + iin);
 //        GetAvailableReportsForIdClient.jaxbObjectToXML(request1);
-        //JAXBElement<GetAvailableReportsForIdResponse> obj = (JAXBElement<GetAvailableReportsForIdResponse>)
-                getWebServiceTemplate().sendAndReceive("http://test2.1cb.kz/FCBServices/Service",
+        JAXBElement<GetAvailableReportsForIdResponse> obj = (JAXBElement<GetAvailableReportsForIdResponse>)
+        getWebServiceTemplate().sendAndReceive("http://test2.1cb.kz/FCBServices/Service",
                 new WebServiceMessageCallback() {
-                    public void doWithMessage(WebServiceMessage request) throws IOException, TransformerException {
-                        SoapBody soapBody = ((SoapMessage) request1).getSoapBody();
-                        SoapHeader soapHeader = ((SoapMessage) myheader).getSoapHeader();
+                    public void doWithMessage(WebServiceMessage message) throws IOException, TransformerException {
+                        SoapBody soapBody = ((SoapMessage) message).getSoapBody();
+                        SoapHeader soapHeader = ((SoapMessage) message).getSoapHeader();
 
                         try {
                             JAXBContext context = JAXBContext.newInstance(GetAvailableReportsForId.class);
@@ -85,8 +83,8 @@ public class GetAvailableReportsForIdClient extends WebServiceGatewaySupport {
                 new WebServiceMessageExtractor<Object>() {
                     public Object extractData(WebServiceMessage response) throws IOException {
                         try {
-                            JAXBContext context = JAXBContext.newInstance(GetAvailableReportsForIdResponse.class);
-                            org.springframework.oxm.Unmarshaller unmarshaller = (org.springframework.oxm.Unmarshaller) context.createUnmarshaller();
+                            JAXBContext context2 = JAXBContext.newInstance(GetAvailableReportsForIdResponse.class);
+                            org.springframework.oxm.Unmarshaller unmarshaller = context2.createUnmarshaller();
                             MarshallingUtils.unmarshal(unmarshaller, response);
                         } catch (JAXBException e) {
                             throw new IOException("No unmarshaller registered. Check configuration of WebServiceTemplate.");
