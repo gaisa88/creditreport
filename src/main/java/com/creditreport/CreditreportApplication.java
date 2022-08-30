@@ -6,11 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.soap.SOAPException;
 
 @SpringBootApplication
 public class CreditreportApplication {
 
-    public static void main(String[] args) throws ParserConfigurationException {
+    public static void main(String[] args) throws ParserConfigurationException, SOAPException {
         ApplicationContext ctx = SpringApplication.run(CreditreportApplication.class, args);
 
         GetAvailableReportsForIdClient getAvailableReportsForIdClient = ctx.getBean(GetAvailableReportsForIdClient.class);
